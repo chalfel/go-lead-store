@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+	"os"
 
 	env "github.com/Netflix/go-env"
 	"github.com/chalfel/go-lead-store/app"
@@ -22,10 +23,11 @@ func startCmd(cmd *cobra.Command, arg []string) error {
 	var cfg config.ApplicationConfig
 	var err error
 
-	if err := godotenv.Load(); err != nil {
-		return errors.New("error while loading .env file")
+	if os.Getenv("ENV") != "production" {
+		if err := godotenv.Load(); err != nil {
+			return errors.New("error while loading .env file")
+		}
 	}
-
 	_, err = env.UnmarshalFromEnviron(&cfg)
 
 	if err != nil {
