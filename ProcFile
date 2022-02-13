@@ -1,1 +1,1 @@
-web: bin/go-lead-store server
+web: go-lead-store server
