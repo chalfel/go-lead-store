@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -39,7 +40,7 @@ func NewServer(database *db.DatabaseConnection, cfg *config.ApplicationConfig) *
 	s.SetupLogging()
 
 	s.Server = &http.Server{
-		Addr:    cfg.Runtime.HttpPort,
+		Addr:    fmt.Sprintf(":%s", cfg.Runtime.HttpPort),
 		Handler: s.Router,
 	}
 
