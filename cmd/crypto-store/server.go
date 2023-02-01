@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 	"os"
 
 	env "github.com/Netflix/go-env"
@@ -20,6 +21,7 @@ var ServerCmd = &cobra.Command{
 }
 
 func startCmd(cmd *cobra.Command, arg []string) error {
+	fmt.Println("starting server")
 	var cfg config.ApplicationConfig
 	var err error
 
@@ -30,6 +32,7 @@ func startCmd(cmd *cobra.Command, arg []string) error {
 	}
 	_, err = env.UnmarshalFromEnviron(&cfg)
 
+	fmt.Println(cfg)
 	if err != nil {
 		return err
 	}
@@ -37,12 +40,14 @@ func startCmd(cmd *cobra.Command, arg []string) error {
 	validate := validator.New()
 
 	if err := validate.Struct(cfg); err != nil {
+		fmt.Println(err)
 		return err
 	}
 
 	db, err := db.NewDatabaseConnection(&cfg.Database)
 
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -50,6 +55,7 @@ func startCmd(cmd *cobra.Command, arg []string) error {
 	app.NewAPI(server)
 
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
