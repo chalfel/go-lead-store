@@ -12,7 +12,7 @@ type ApplicationConfig struct {
 
 type RuntimeConfig struct {
 	Env      string `env:"ENV,default=development"`
-	HttpPort string `env:"HTTP,default=8080"`
+	HttpPort string `env:"PORT,default=8080"`
 }
 
 type DatabaseConfig struct {
