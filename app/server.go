@@ -12,7 +12,9 @@ import (
 
 	"github.com/chalfel/go-lead-store/config"
 	"github.com/chalfel/go-lead-store/db"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/rs/cors"
 	"go.uber.org/zap"
 )
 
@@ -30,6 +32,10 @@ func NewServer(database *db.DatabaseConnection, cfg *config.ApplicationConfig) *
 	}
 
 	router := gin.Default()
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowOrigins = []string{"*"}
+
+	router.Use(cors.New(corsConfig))
 
 	s := &Server{
 		Router: router,
