@@ -14,7 +14,6 @@ import (
 	"github.com/chalfel/go-lead-store/db"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/rs/cors"
 	"go.uber.org/zap"
 )
 
